@@ -3,8 +3,10 @@ include Java
 import javax.swing.JTree
 import javax.swing.tree.DefaultMutableTreeNode
 
-class Tree
-  def create_tree(root_name)
+class TreeView
+  attr_reader :tree
+
+  def create_tree(root_name="ROOT")
     root = DefaultMutableTreeNode.new(root_name)
     @tree ||= JTree.new(root)
   end

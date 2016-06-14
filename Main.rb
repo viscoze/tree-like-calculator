@@ -1,8 +1,10 @@
 require './view/UserInterface'
+require './controller/CalculatorCore'
 
 class Main
   def main
-    UserInterface.new
+    calc = CalculatorCore.new
+    UserInterface.new calc
   end
 end
 
