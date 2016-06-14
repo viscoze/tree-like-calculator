@@ -44,7 +44,7 @@ class UserInterface
     engin_panel     = JPanel.new
     number_panel    = initialize_input_panel
 
-    tree_panel      = JScrollPane.new(@tree.create_tree)
+    tree_panel      = JScrollPane.new(@tree.jtree)
 
     tree_side_panel.add(@result_label, BorderLayout::NORTH)
     tree_side_panel.add(tree_panel,   BorderLayout::CENTER)
