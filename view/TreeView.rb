@@ -36,7 +36,7 @@ class TreeView
 
   private
 
-    def build_tree(root, obj)
+  def build_tree(root, obj)
     if obj.left
       child_node = create_node(obj.left.info, root)
       build_tree(child_node, obj.left)
