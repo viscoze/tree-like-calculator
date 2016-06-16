@@ -42,11 +42,20 @@ module ButtonSetter
       button.add_action_listener { pop_input }
     when "D"
       button.add_action_listener { remove_input }
+    when "<"
+    when ">"
     else
       button.add_action_listener { push_input(button.get_label) }
     end
   end
 
   def set_action_to_complex_button(button, label)
+    case label
+    when "sqrt"
+    when "1/x"
+    when "ln"
+    when "log"
+    when "fact"
+    end
   end
 end

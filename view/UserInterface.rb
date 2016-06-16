@@ -8,6 +8,7 @@ import javax.swing.JPanel
 import javax.swing.JButton
 import javax.swing.JLabel
 import javax.swing.JTextField
+import javax.swing.JTabbedPane
 import javax.swing.JScrollPane
 
 require './view/TreeView'
@@ -32,7 +33,7 @@ class UserInterface
   def initialize_frame_settings
     @frame.set_title "Tree Calculator by Vlad"
     @frame.set_location_relative_to nil
-    @frame.set_size 600,400
+    @frame.set_size 700,400
     @frame.set_default_close_operation JFrame::EXIT_ON_CLOSE
     @frame.set_resizable false
     @frame.set_visible true
@@ -51,8 +52,8 @@ class UserInterface
     jtree_scroll_pane.setPreferredSize(Dimension.new 120,250)
     jtree_panel.add(jtree_scroll_pane)
 
-    @result_field = JTextField.new 10
-    @input_field  = JTextField.new 40
+    @result_field = JTextField.new 15
+    @input_field  = JTextField.new 45
 
     @result_field.set_editable(false)
     @input_field.set_editable(false)
@@ -60,10 +61,14 @@ class UserInterface
     text_panel.add(@result_field)
     text_panel.add(@input_field)
 
-    main_panel.add(button_panel, BorderLayout::CENTER)
-    main_panel.add(operation_panel, BorderLayout::LINE_END)
-    # main_panel.add(complex_operation_panel, BorderLayout::LINE_END)
+    tab_pane = JTabbedPane.new
 
+    tab_pane.add_tab("Bsc",   operation_panel)
+    tab_pane.add_tab("Cmplx", complex_operation_panel)
+
+    main_panel.add(tab_pane, BorderLayout::LINE_END)
+
+    main_panel.add(button_panel, BorderLayout::CENTER)
     main_panel.add(text_panel,  BorderLayout::PAGE_START)
     main_panel.add(jtree_panel, BorderLayout::LINE_START)
 
@@ -83,6 +88,8 @@ class UserInterface
   def remove_input
     @input = []
     @input_field.set_text("")
+    @result_field.set_text("")
+    @tree.destroy
   end
 
   def show_tree

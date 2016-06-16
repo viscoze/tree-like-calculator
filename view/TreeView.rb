@@ -25,6 +25,10 @@ class TreeView
     create_tree
   end
 
+  def destroy
+    @tree_model.set_root nil
+  end
+
   def create_tree
     root_name   = @tree.info
     root_node   = DefaultMutableTreeNode.new(root_name)
