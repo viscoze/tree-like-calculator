@@ -67,8 +67,8 @@ class UserInterface
   end
 
   def get_operation_panel
-    main_panel = JPanel.new(GridLayout.new 3,2)
-    get_buttons("+-*/()",main_panel)
+    main_panel = JPanel.new(GridLayout.new 4,2)
+    get_buttons("+-*/()%C",main_panel)
     main_panel
   end
 
@@ -78,8 +78,18 @@ class UserInterface
     main_panel
   end
 
-  def set_input(token)
+  def get_complex_operation_panel
+    "sqrt ln log fact 1/x".split(" ").each do |label|
+    end
+  end
+
+  def push_input(token)
     @input.push(token)
+    @input_field.set_text(@input.join(""))
+  end
+
+  def pop_input
+    @input.pop
     @input_field.set_text(@input.join(""))
   end
 
@@ -100,8 +110,10 @@ class UserInterface
     case label
     when "="
       button.add_action_listener { show_tree }
+    when "C"
+      button.add_action_listener { pop_input }
     else
-      button.add_action_listener { set_input(button.get_label) }
+      button.add_action_listener { push_input(button.get_label) }
     end
   end
 end

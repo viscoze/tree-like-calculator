@@ -5,14 +5,16 @@ class TreeNode
     "+" => lambda {|x, y| x + y},
     "-" => lambda {|x, y| x - y},
     "*" => lambda {|x, y| x * y},
-    "/" => lambda {|x, y| x / y}
+    "/" => lambda {|x, y| x / y},
+    "%" => lambda {|x, y| x % y}
   }
 
   OP_PRIORITY = {
     "+" => 0,
     "-" => 0,
     "*" => 1,
-    "/" => 1
+    "/" => 1,
+    "%" => 1
   }
 
   def initialize(info="")

@@ -17,7 +17,8 @@ class Parser
     "+" => 0,
     "-" => 0,
     "*" => 1,
-    "/" => 1
+    "/" => 1,
+    "%" => 1
   }
 
   def tokenize(exp)
@@ -28,6 +29,7 @@ class Parser
       .gsub('-', ' - ')
       .gsub('*', ' * ')
       .gsub('/', ' / ')
+      .gsub('%', ' % ')
       .split(' ')
   end
 
@@ -53,7 +55,7 @@ class Parser
                OP_PRIORITY[op_stack.last.info] < OP_PRIORITY[token])
           pop_connect_push(op_stack, node_stack)
         end
-        
+
         op_stack.push(TreeNode.new(token))
       elsif token == "("
         op_stack.push(TreeNode.new(token))
