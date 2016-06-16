@@ -15,13 +15,17 @@ require './view/TreeView'
 class UserInterface
   attr_accessor :result_label, :enter_label
 
-  def initialize()
+  def initialize
     @frame = JFrame.new
     @tree  = TreeView.new
+
+    @input = []
 
     initialize_user_interface
     initialize_frame_settings
   end
+
+  private
 
   def initialize_frame_settings
     @frame.set_title "Tree Calculator by Vlad"
@@ -33,24 +37,28 @@ class UserInterface
   end
 
   def initialize_user_interface
-    main_panel  = JPanel.new(BorderLayout.new)
+    main_panel      = JPanel.new(BorderLayout.new)
 
-    jtree_panel   = JPanel.new
-    buttons_panel = JPanel.new
-    text_panel    = JPanel.new
+    jtree_panel     = JPanel.new
+    text_panel      = JPanel.new
+    button_panel    = get_button_panel
+    operation_panel = get_operation_panel
 
     jtree_scroll_pane = JScrollPane.new(@tree.jtree)
     jtree_scroll_pane.setPreferredSize(Dimension.new 120,250)
     jtree_panel.add(jtree_scroll_pane)
 
-    @result = JTextField.new 10
-    @input  = JTextField.new 40
+    @result_field = JTextField.new 10
+    @input_field  = JTextField.new 40
 
-    @result.set_editable(false)
-    @input.set_editable(false)
+    @result_field.set_editable(false)
+    @input_field.set_editable(false)
 
-    text_panel.add(@result)
-    text_panel.add(@input)
+    text_panel.add(@result_field)
+    text_panel.add(@input_field)
+
+    main_panel.add(button_panel, BorderLayout::CENTER)
+    main_panel.add(operation_panel, BorderLayout::LINE_END)
 
     main_panel.add(text_panel,  BorderLayout::PAGE_START)
     main_panel.add(jtree_panel, BorderLayout::LINE_START)
@@ -58,22 +66,42 @@ class UserInterface
     @frame.add(main_panel)
   end
 
-
-  def initialize_input_panel
-    main_panel      = JPanel.new GridLayout.new(6,5)
-
-    "<>C= ".split('').each do |symbol|
-      button = JButton.new "#{symbol}"
-      # button.add_action_listener { @calc.process_operation(button.getLabel) }
-      main_panel.add(button)
-    end
-
-    "789()456+*123-/.0 SP".split('').each do |number_label|
-      button = JButton.new "#{number_label}"
-      # button.add_action_listener { @calc.add_token(button.getLabel) }
-      main_panel.add(button)
-    end
-
+  def get_operation_panel
+    main_panel = JPanel.new(GridLayout.new 3,2)
+    get_buttons("+-*/()",main_panel)
     main_panel
+  end
+
+  def get_button_panel
+    main_panel = JPanel.new(GridLayout.new 4,3)
+    get_buttons("789456123.0=",main_panel)
+    main_panel
+  end
+
+  def set_input(token)
+    @input.push(token)
+    @input_field.set_text(@input.join(""))
+  end
+
+  def show_tree
+    @tree.start(@input.join(""))
+    @result_field.set_text(@tree.result.to_s)
+  end
+
+  def get_buttons(button_string, panel)
+    button_string.split('').each do |label|
+      button = JButton.new "#{label}"
+      set_action_to_button(button, label)
+      panel.add(button)
+    end
+  end
+
+  def set_action_to_button(button, label)
+    case label
+    when "="
+      button.add_action_listener { show_tree }
+    else
+      button.add_action_listener { set_input(button.get_label) }
+    end
   end
 end

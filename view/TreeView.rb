@@ -11,6 +11,9 @@ class TreeView
 
   def initialize
     @jtree = JTree.new
+
+    @tree_model = @jtree.get_model
+    @tree_model.set_root nil
   end
 
   def start(expression)
@@ -25,7 +28,6 @@ class TreeView
   def create_tree
     root_name   = @tree.info
     root_node   = DefaultMutableTreeNode.new(root_name)
-    @tree_model = @jtree.get_model
     @tree_model.set_root root_node
     @jtree.set_shows_root_handles true
 
