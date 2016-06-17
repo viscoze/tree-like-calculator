@@ -64,8 +64,6 @@ class TreeState
       _n << eval_(_n.last)
     end
 
-    puts _n
-
     [_n, _n.last.info.to_f]
   end
 end

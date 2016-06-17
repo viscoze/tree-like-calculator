@@ -94,6 +94,7 @@ class UserInterface
     @input = []
     @input_field.set_text("")
     @result_field.set_text("")
+    @state_field.set_text("")
     @tree.destroy
   end
 

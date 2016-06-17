@@ -28,6 +28,8 @@ class TreeView
   end
 
   def destroy
+    @history = []
+    @history_state = 0
     @tree_model.set_root nil
   end
 
