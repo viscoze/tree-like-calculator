@@ -18,7 +18,11 @@ class Parser
     "-" => 0,
     "*" => 1,
     "/" => 1,
-    "%" => 1
+    "%" => 1,
+    "q" => 2,
+    "p" => 2,
+    "c" => 2,
+    "s" => 2
   }
 
   def tokenize(exp)
@@ -30,6 +34,11 @@ class Parser
       .gsub('*', ' * ')
       .gsub('/', ' / ')
       .gsub('%', ' % ')
+      .gsub('q', 'q ')
+      .gsub('p', 'p ')
+      .gsub('c', 'c ')
+      .gsub('s', 's ')
+      .gsub('t', 't ')
       .split(' ')
   end
 

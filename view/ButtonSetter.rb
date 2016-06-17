@@ -14,7 +14,7 @@ module ButtonSetter
   def get_complex_operation_panel
     main_panel = JPanel.new GridLayout.new 3,2
 
-    "sqrt 1/x ln log fact".split(" ").each do |label|
+    "sqrt 1/x cos sin tan".split(" ").each do |label|
       button = JButton.new "#{label}"
       set_action_to_complex_button(button, label)
       main_panel.add(button)
@@ -52,10 +52,15 @@ module ButtonSetter
   def set_action_to_complex_button(button, label)
     case label
     when "sqrt"
+      button.add_action_listener { push_input("q") }
     when "1/x"
-    when "ln"
-    when "log"
-    when "fact"
+      button.add_action_listener { push_input("p") }
+    when "cos"
+      button.add_action_listener { push_input("c") }
+    when "sin"
+      button.add_action_listener { push_input("s") }
+    when "tan"
+      button.add_action_listener { push_input("t") }
     end
   end
 end

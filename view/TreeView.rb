@@ -30,7 +30,7 @@ class TreeView
   end
 
   def create_tree
-    root_name   = @tree.info
+    root_name   = expand_labels @tree.info
     root_node   = DefaultMutableTreeNode.new(root_name)
     @tree_model.set_root root_node
     @jtree.set_shows_root_handles true
@@ -42,12 +42,12 @@ class TreeView
 
   def build_tree(root, obj)
     if obj.left
-      child_node = create_node(obj.left.info, root)
+      child_node = create_node(expand_labels(obj.left.info), root)
       build_tree(child_node, obj.left)
     end
 
     if obj.right
-      child_node = create_node(obj.right.info, root)
+      child_node = create_node(expand_labels(obj.right.info), root)
       build_tree(child_node, obj.right)
     end
   end
@@ -57,6 +57,21 @@ class TreeView
     parent_node.add(child_node)
     child_node
   end
-end
 
-TreeView.new
+  def expand_labels(label)
+    case label
+    when "q"
+      return "sqrt"
+    when "p"
+      return "1/x"
+    when "c"
+      return "cos"
+    when "s"
+      return "sin"
+    when "t"
+      return "tan"
+    else
+      label
+    end
+  end
+end

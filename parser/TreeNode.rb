@@ -2,11 +2,16 @@ class TreeNode
   attr_accessor :info, :left, :right
 
   OP_FUNCTION = {
-    "+" => lambda {|x, y| x + y},
-    "-" => lambda {|x, y| x - y},
-    "*" => lambda {|x, y| x * y},
-    "/" => lambda {|x, y| x / y},
-    "%" => lambda {|x, y| x % y}
+    "+" => lambda { |x, y| x + y },
+    "-" => lambda { |x, y| x - y },
+    "*" => lambda { |x, y| x * y },
+    "/" => lambda { |x, y| x / y },
+    "%" => lambda { |x, y| x % y },
+    "q" => lambda { |x| (x^0.5) },
+    "p" => lambda { |x| (1/x) },
+    "c" => lambda { |x| (Math.cos x) },
+    "s" => lambda { |x| (Math.sin x) },
+    "t" => lambda { |x| (Math.tan x) }
   }
 
   OP_PRIORITY = {
@@ -14,7 +19,11 @@ class TreeNode
     "-" => 0,
     "*" => 1,
     "/" => 1,
-    "%" => 1
+    "%" => 1,
+    "q" => 2,
+    "p" => 2,
+    "c" => 2,
+    "s" => 2
   }
 
   def initialize(info="")
@@ -39,7 +48,11 @@ class TreeNode
 
   def eval
     if !leaf? and operator?(@info)
-      OP_FUNCTION[@info].call(@left.eval, @right.eval)
+      unless @left.nil?
+        OP_FUNCTION[@info].call(@left.eval, @right.eval)
+      else
+        OP_FUNCTION[@info].call(@right.eval)
+      end
     else
       @info.to_f
     end

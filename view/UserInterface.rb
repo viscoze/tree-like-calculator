@@ -77,11 +77,16 @@ class UserInterface
 
   def push_input(token)
     @input.push(token)
-    @input_field.set_text(@input.join(""))
+    input = expand_result_text(@input).join("")
+    @input_field.set_text(input)
+    # @input_field.set_text(@input.join(""))
   end
 
   def pop_input
     @input.pop
+    p expand_result_text(@input)
+    # input = expand_result_text(@input).join("")
+    # @input_field.set_text(input)
     @input_field.set_text(@input.join(""))
   end
 
@@ -95,5 +100,24 @@ class UserInterface
   def show_tree
     @tree.start(@input.join(""))
     @result_field.set_text(@tree.result.to_s)
+  end
+
+  def expand_result_text(text_list)
+    text_list.map do |label|
+      case label
+      when "q"
+        return "sqrt"
+      when "p"
+        return "1/x"
+      when "c"
+        return "cos"
+      when "s"
+        return "sin"
+      when "t"
+        return "tan"
+      else
+        label
+      end
+    end
   end
 end
