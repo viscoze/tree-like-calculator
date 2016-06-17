@@ -79,15 +79,12 @@ class UserInterface
     @input.push(token)
     input = expand_result_text(@input).join("")
     @input_field.set_text(input)
-    # @input_field.set_text(@input.join(""))
   end
 
   def pop_input
     @input.pop
-    p expand_result_text(@input)
-    # input = expand_result_text(@input).join("")
-    # @input_field.set_text(input)
-    @input_field.set_text(@input.join(""))
+    input = expand_result_text(@input).join("")
+    @input_field.set_text(input)
   end
 
   def remove_input
@@ -106,15 +103,15 @@ class UserInterface
     text_list.map do |label|
       case label
       when "q"
-        return "sqrt"
+        "sqrt"
       when "p"
-        return "1/x"
+        "1/x"
       when "c"
-        return "cos"
+        "cos"
       when "s"
-        return "sin"
+        "sin"
       when "t"
-        return "tan"
+        "tan"
       else
         label
       end

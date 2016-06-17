@@ -7,7 +7,7 @@ class TreeNode
     "*" => lambda { |x, y| x * y },
     "/" => lambda { |x, y| x / y },
     "%" => lambda { |x, y| x % y },
-    "q" => lambda { |x| (x^0.5) },
+    "q" => lambda { |x| (Math.sqrt x) },
     "p" => lambda { |x| (1/x) },
     "c" => lambda { |x| (Math.cos x) },
     "s" => lambda { |x| (Math.sin x) },
