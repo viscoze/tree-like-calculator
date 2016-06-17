@@ -54,9 +54,11 @@ class UserInterface
 
     @result_field = JTextField.new 15
     @input_field  = JTextField.new 45
+    @state_field  = JTextField.new 45
 
     @result_field.set_editable(false)
     @input_field.set_editable(false)
+    @state_field.set_editable(false)
 
     text_panel.add(@result_field)
     text_panel.add(@input_field)
@@ -69,8 +71,9 @@ class UserInterface
     main_panel.add(tab_pane, BorderLayout::LINE_END)
 
     main_panel.add(button_panel, BorderLayout::CENTER)
-    main_panel.add(text_panel,  BorderLayout::PAGE_START)
-    main_panel.add(jtree_panel, BorderLayout::LINE_START)
+    main_panel.add(text_panel,   BorderLayout::PAGE_START)
+    main_panel.add(jtree_panel,  BorderLayout::LINE_START)
+    main_panel.add(@state_field, BorderLayout::PAGE_END)
 
     @frame.add(main_panel)
   end
@@ -97,6 +100,10 @@ class UserInterface
   def show_tree
     @tree.start(@input.join(""))
     @result_field.set_text(@tree.result.to_s)
+  end
+
+  def state_result
+    @state_field.set_text @tree.tree.to_s
   end
 
   def expand_result_text(text_list)

@@ -37,13 +37,15 @@ module ButtonSetter
   def set_action_to_button(button, label)
     case label
     when "="
-      button.add_action_listener { show_tree }
+      button.add_action_listener { show_tree; state_result; }
     when "C"
       button.add_action_listener { pop_input }
     when "D"
       button.add_action_listener { remove_input }
     when "<"
+      button.add_action_listener { @tree.dec; state_result; }
     when ">"
+      button.add_action_listener { @tree.inc; state_result; }
     else
       button.add_action_listener { push_input(button.get_label) }
     end

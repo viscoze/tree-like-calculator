@@ -40,9 +40,9 @@ class TreeNode
 
   def to_s
     if leaf?
-      @info
+      @info.to_s
     else
-      "(" + [@info, @left.to_s, @right.to_s].join(" ") + ")"
+      "(" + [@left.to_s, @info, @right.to_s].join(" ") + ")"
     end
   end
 

@@ -1,14 +1,12 @@
 require './parser/TreeNode'
+require './parser/TreeState'
 
 class Parser
-  attr_accessor :tree
+  attr_accessor :tree, :result, :history
 
   def parse(expression)
     @tree = infix_exp_to_tree(expression)
-  end
-
-  def result
-    @tree.eval
+    @history, @result = TreeState.eval_root @tree
   end
 
   private

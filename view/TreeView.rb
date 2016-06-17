@@ -7,7 +7,7 @@ import javax.swing.tree.DefaultTreeModel
 require "./parser/Parser"
 
 class TreeView
-  attr_accessor :jtree, :tree, :result
+  attr_accessor :jtree, :result, :history, :history_state
 
   def initialize
     @jtree = JTree.new
@@ -19,8 +19,10 @@ class TreeView
   def start(expression)
     parser = Parser.new
     parser.parse(expression)
-    @tree   = parser.tree
+    @_tree   = parser.tree
     @result = parser.result
+    @history = parser.history
+    @history_state = 0
 
     create_tree
   end
@@ -29,16 +31,31 @@ class TreeView
     @tree_model.set_root nil
   end
 
+  def tree
+    @history[@history_state]
+  end
+
+  def inc
+    @history_state += 1 if @history_state < @history.size - 1
+    create_tree
+  end
+
+  def dec
+    @history_state -= 1 if @history_state > 0
+    create_tree
+  end
+
+  private
+
   def create_tree
-    root_name   = expand_labels @tree.info
+    root_name   = expand_labels tree.info
     root_node   = DefaultMutableTreeNode.new(root_name)
     @tree_model.set_root root_node
     @jtree.set_shows_root_handles true
 
-    build_tree(root_node, @tree)
+    build_tree(root_node, tree)
+    (0..(@history.size - @history_state)).to_a.each { expand_all }
   end
-
-  private
 
   def build_tree(root, obj)
     if obj.left
@@ -72,6 +89,12 @@ class TreeView
       return "tan"
     else
       label
+    end
+  end
+
+  def expand_all
+    (0..@jtree.getRowCount).to_a.each do |index|
+      @jtree.expand_row(index)
     end
   end
 end
