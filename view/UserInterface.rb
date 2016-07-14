@@ -33,7 +33,7 @@ class UserInterface
   def initialize_frame_settings
     @frame.set_title "Tree Calculator by Vlad"
     @frame.set_location_relative_to nil
-    @frame.set_size 700,400
+    @frame.set_size 900,400
     @frame.set_default_close_operation JFrame::EXIT_ON_CLOSE
     @frame.set_resizable false
     @frame.set_visible true
@@ -49,7 +49,7 @@ class UserInterface
     complex_operation_panel = get_complex_operation_panel
 
     jtree_scroll_pane = JScrollPane.new(@tree.jtree)
-    jtree_scroll_pane.setPreferredSize(Dimension.new 120,250)
+    jtree_scroll_pane.setPreferredSize(Dimension.new 150,300)
     jtree_panel.add(jtree_scroll_pane)
 
     @result_field = JTextField.new 15
